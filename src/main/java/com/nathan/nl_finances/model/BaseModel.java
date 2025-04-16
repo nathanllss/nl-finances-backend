@@ -22,5 +22,5 @@ public abstract class BaseModel {
     @UpdateTimestamp
     private OffsetDateTime updatedAt;
 
-    private boolean active;
+    private Boolean active;
 }

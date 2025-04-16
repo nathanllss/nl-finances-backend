@@ -30,6 +30,9 @@ public class Account {
     @OneToMany(mappedBy = "owner")
     private List<Category> categories;
 
+    @OneToMany(mappedBy = "accountOwner")
+    private List<Budget> budgets;
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
