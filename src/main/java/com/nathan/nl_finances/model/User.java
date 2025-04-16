@@ -33,8 +33,7 @@ public class User extends BaseModel{
 
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_id")
+    @OneToOne(mappedBy = "owner",cascade = CascadeType.ALL)
     private Account account;
 
 }
