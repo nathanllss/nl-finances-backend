@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -22,26 +23,26 @@ public class Account {
     @GeneratedValue(strategy = UUID)
     private UUID id;
     private BigDecimal currentBalance;
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User owner;
     @OneToMany(mappedBy = "owner",cascade = CascadeType.ALL)
-    private List<Transaction> transactions;
+    @Setter(AccessLevel.NONE)
+    private List<Transaction> transactions = new ArrayList<>();
     @OneToMany(mappedBy = "owner")
-    private List<Category> categories;
+    @Setter(AccessLevel.NONE)
+    private List<Category> categories = new ArrayList<>();
 
     @OneToMany(mappedBy = "accountOwner")
-    private List<Budget> budgets;
+    @Setter(AccessLevel.NONE)
+    private List<Budget> budgets = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Account account = (Account) o;
-        return Objects.equals(id, account.id) && Objects.equals(owner, account.owner);
+        return Objects.equals(id, account.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, owner);
+        return Objects.hashCode(id);
     }
 }

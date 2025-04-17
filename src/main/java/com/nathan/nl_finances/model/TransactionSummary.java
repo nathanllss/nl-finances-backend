@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
@@ -15,7 +17,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TransactionSummary extends BaseModel{
+public class TransactionSummary {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -28,6 +30,9 @@ public class TransactionSummary extends BaseModel{
     private BigDecimal totalIncome;
 
     private BigDecimal totalSpent;
+
+    @LastModifiedDate
+    private OffsetDateTime lastUpdate;
 
     @Lob
     private String expensesByCategoryJson;

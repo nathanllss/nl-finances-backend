@@ -6,11 +6,18 @@ INSERT INTO tb_user (id, created_at, updated_at, active, name, email_address, ph
 INSERT INTO tb_user (id, created_at, updated_at, active, name, email_address, phone_number, username, password) VALUES ('523e4567-e89b-12d3-a456-426614174004', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 'Carlos Mendes', 'carlos@email.com', '11955667788', 'carlosmendes', 'senha202');
 
 -- Inserindo contas
-INSERT INTO tb_account (id, current_balance, user_id) VALUES ('623e4567-e89b-12d3-a456-426614174005', 5000.00, '123e4567-e89b-12d3-a456-426614174000');
-INSERT INTO tb_account (id, current_balance, user_id) VALUES ('723e4567-e89b-12d3-a456-426614174006', 3500.00, '223e4567-e89b-12d3-a456-426614174001');
-INSERT INTO tb_account (id, current_balance, user_id) VALUES ('823e4567-e89b-12d3-a456-426614174007', 7800.00, '323e4567-e89b-12d3-a456-426614174002');
-INSERT INTO tb_account (id, current_balance, user_id) VALUES ('923e4567-e89b-12d3-a456-426614174008', 2300.00, '423e4567-e89b-12d3-a456-426614174003');
-INSERT INTO tb_account (id, current_balance, user_id) VALUES ('a23e4567-e89b-12d3-a456-426614174009', 6200.00, '523e4567-e89b-12d3-a456-426614174004');
+INSERT INTO tb_account (id, current_balance) VALUES ('623e4567-e89b-12d3-a456-426614174005', 5000.00);
+INSERT INTO tb_account (id, current_balance) VALUES ('723e4567-e89b-12d3-a456-426614174006', 3500.00);
+INSERT INTO tb_account (id, current_balance) VALUES ('823e4567-e89b-12d3-a456-426614174007', 7800.00);
+INSERT INTO tb_account (id, current_balance) VALUES ('923e4567-e89b-12d3-a456-426614174008', 2300.00);
+INSERT INTO tb_account (id, current_balance) VALUES ('a23e4567-e89b-12d3-a456-426614174009', 6200.00);
+
+-- Linkando contas aos usuários
+UPDATE tb_user SET account_id = '623e4567-e89b-12d3-a456-426614174005' WHERE id = '123e4567-e89b-12d3-a456-426614174000';
+UPDATE tb_user SET account_id = '723e4567-e89b-12d3-a456-426614174006' WHERE id = '223e4567-e89b-12d3-a456-426614174001';
+UPDATE tb_user SET account_id = '823e4567-e89b-12d3-a456-426614174007' WHERE id = '323e4567-e89b-12d3-a456-426614174002';
+UPDATE tb_user SET account_id = '923e4567-e89b-12d3-a456-426614174008' WHERE id = '423e4567-e89b-12d3-a456-426614174003';
+UPDATE tb_user SET account_id = 'a23e4567-e89b-12d3-a456-426614174009' WHERE id = '523e4567-e89b-12d3-a456-426614174004';
 
 -- Inserindo categorias de receita
 INSERT INTO tb_category (id, name, description, img_url, color_hex, type, account_id) VALUES (1, 'Salário', 'Rendimentos mensais', 'salary-icon.png', '#27AE60', 'INCOME', '623e4567-e89b-12d3-a456-426614174005');
