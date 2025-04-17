@@ -62,14 +62,28 @@ public class UserService {
         if (user.isEmpty()) {
             log.error("User not found with id: {}", id);
             throw new UserNotFoundException("User not found");
-        }
-        if (!user.get().getActive()) {
+        } else if (!user.get().getActive()) {
             log.warn("User {} is not active", user.get().getUsername());
             return UserMapper.toDto(user.get());
+        } else {
+            log.info("User found: {} ", user.get().getUsername());
+            return UserMapper.toDto(user.get());
         }
+    }
 
-        log.info("User found: {} ", user.get().getUsername());
-        return UserMapper.toDto(user.get());
+    public void deleteUserById(final UUID id) {
+        if (!userRepository.existsById(id)) {
+            log.error("User not found with id: {}", id);
+            throw new UserNotFoundException("User not found");
+        }
+        if (!userRepository.findById(id).get().getActive()) {
+            log.warn("User {} is not active", userRepository.findById(id).get().getUsername());
+            return;
+        }
+        User user = userRepository.findById(id).get();
+        user.setActive(false);
+        userRepository.save(user);
+        log.info("User {} deleted", user.getUsername());
     }
 
     public UserDto userToDto(User user) {
