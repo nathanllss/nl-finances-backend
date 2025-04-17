@@ -2,6 +2,7 @@ package com.nathan.nl_finances.services;
 
 
 import com.nathan.nl_finances.controllers.dtos.UserDto;
+import com.nathan.nl_finances.exceptions.UserNotFoundException;
 import com.nathan.nl_finances.mapper.UserMapper;
 import com.nathan.nl_finances.model.Account;
 import com.nathan.nl_finances.model.User;
@@ -9,13 +10,15 @@ import com.nathan.nl_finances.repositories.UserRepository;
 import com.nathan.nl_finances.util.validators.UserValidator;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor
@@ -26,25 +29,25 @@ public class UserService {
 
     @Autowired
     private List<UserValidator> validators;
-    private final Logger logger = Logger.getLogger(UserService.class.getName());
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 
     @Transactional
     public UserDto saveUser(final UserDto userDto) {
 
-        logger.info("Validating user: " + userDto.getUsername());
+        log.info("Validating user: {} ", userDto.getUsername());
         validateUser(userDto);
-        logger.info("User validated: " + userDto.getUsername());
+        log.info("User validated: {} " , userDto.getUsername());
 
-        logger.info("Saving user: " + userDto.getUsername());
+        log.info("Saving user: {} " , userDto.getUsername());
         User entity = dtoToEntity(userDto);
-        logger.info("Creating account for user: " + userDto.getUsername());
-        createAccount(entity);
-        logger.info("Account created for user: " + userDto.getUsername());
-        entity = userRepository.saveAndFlush(entity);
-        logger.info("User saved: " + entity.getUsername());
-        System.out.println(entity);
 
+        log.info("Creating account for user: {} " , userDto.getUsername());
+        createAccount(entity);
+        log.info("Account created for user: {} " , userDto.getUsername());
+
+        entity = userRepository.saveAndFlush(entity);
+        log.info("User saved: {} ", entity.getUsername());
         return this.userToDto(entity);
     }
 
@@ -54,8 +57,19 @@ public class UserService {
     }
 
     public UserDto findUserById(final UUID id) {
-        User user = userRepository.findById(id).orElseThrow();
-        return UserMapper.toDto(user);
+        Optional<User> user = userRepository.findById(id);
+
+        if (user.isEmpty()) {
+            log.error("User not found with id: {}", id);
+            throw new UserNotFoundException("User not found");
+        }
+        if (!user.get().getActive()) {
+            log.warn("User {} is not active", user.get().getUsername());
+            return UserMapper.toDto(user.get());
+        }
+
+        log.info("User found: {} ", user.get().getUsername());
+        return UserMapper.toDto(user.get());
     }
 
     public UserDto userToDto(User user) {

@@ -10,6 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -30,6 +31,12 @@ public class UserController {
         URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
                 .buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(location).body(user);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable String id) {
+        UserDto user = userService.findUserById(UUID.fromString(id));
+        return ResponseEntity.ok(user);
     }
 
 
