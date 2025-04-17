@@ -29,4 +29,5 @@ public class UserDto {
 
     @NotBlank(message = "Password cannot be blank")
     String password;
+    boolean active;
 }

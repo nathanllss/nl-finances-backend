@@ -8,12 +8,12 @@ import com.nathan.nl_finances.model.Account;
 import com.nathan.nl_finances.model.User;
 import com.nathan.nl_finances.repositories.UserRepository;
 import com.nathan.nl_finances.util.validators.UserValidator;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -56,6 +56,7 @@ public class UserService {
                 .stream().map(this::userToDto).toList();
     }
 
+    @Transactional(readOnly = true)
     public UserDto findUserById(final UUID id) {
         Optional<User> user = userRepository.findById(id);
 
@@ -64,13 +65,34 @@ public class UserService {
             throw new UserNotFoundException("User not found");
         } else if (!user.get().getActive()) {
             log.warn("User {} is not active", user.get().getUsername());
-            return UserMapper.toDto(user.get());
+            return this.userToDto(user.get());
         } else {
             log.info("User found: {} ", user.get().getUsername());
-            return UserMapper.toDto(user.get());
+            return this.userToDto(user.get());
         }
     }
 
+    @Transactional
+    public UserDto updateUser(final UUID id, final UserDto userDto) {
+        Optional<User> user = userRepository.findById(id);
+
+        if (user.isEmpty()) {
+            log.error("User not found with id: {}", id);
+            throw new UserNotFoundException("User not found");
+        }
+        if (!user.get().getActive()) {
+            log.warn("User {} is not active", user.get().getUsername());
+        }
+
+        log.info("Updating user: {} ", user.get().getUsername());
+        validateUser(userDto);
+        updateUser(user.get(), userDto);
+        User entity = userRepository.saveAndFlush(user.get());
+        log.info("User updated: {} ", entity.getUsername());
+        return this.userToDto(entity);
+    }
+
+    @Transactional
     public void deleteUserById(final UUID id) {
         if (!userRepository.existsById(id)) {
             log.error("User not found with id: {}", id);
@@ -95,9 +117,19 @@ public class UserService {
     }
 
     private void createAccount(User user) {
+        user.setActive(true);
         Account account = new Account();
         account.setCurrentBalance(BigDecimal.ZERO);
         user.setAccount(account);
+    }
+
+    private void updateUser(User user, UserDto userDto) {
+        user.setName(userDto.getName());
+        user.setEmailAddress(userDto.getEmailAddress());
+        user.setPhoneNumber(userDto.getPhoneNumber());
+        user.setUsername(userDto.getUsername());
+        user.setPassword(userDto.getPassword());
+        user.setActive(userDto.isActive());
     }
 
     private void  validateUser(UserDto userDto) {

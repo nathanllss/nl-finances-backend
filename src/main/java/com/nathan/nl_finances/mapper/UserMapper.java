@@ -14,7 +14,8 @@ public abstract class UserMapper {
                 user.getEmailAddress(),
                 user.getPhoneNumber(),
                 user.getUsername(),
-                user.getPassword()
+                user.getPassword(),
+                user.getActive()
         );
     }
 
@@ -26,6 +27,7 @@ public abstract class UserMapper {
         user.setPhoneNumber(dto.getPhoneNumber());
         user.setUsername(dto.getUsername());
         user.setPassword(dto.getPassword());
+        user.setActive(dto.isActive());
         return user;
     }
 
