@@ -116,7 +116,7 @@ public class UserService {
         return UserMapper.toEntity(userDto);
     }
 
-    private void createAccount(User user) {
+    public void createAccount(User user) {
         user.setActive(true);
         Account account = new Account();
         account.setCurrentBalance(BigDecimal.ZERO);
