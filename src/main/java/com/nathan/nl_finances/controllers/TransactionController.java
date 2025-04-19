@@ -21,7 +21,7 @@ public class TransactionController {
 
     @GetMapping()
     public ResponseEntity<TransactionListDto> getTransactions(@PathVariable String accountId, Pageable pageable) {
-        TransactionListDto transactions = transactionService.getAllTransactions(accountId);
+        TransactionListDto transactions = transactionService.getAllTransactions(accountId, pageable);
         return ResponseEntity.ok(transactions);
     }
 }

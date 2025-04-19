@@ -2,10 +2,11 @@ package com.nathan.nl_finances.repositories;
 
 import com.nathan.nl_finances.controllers.dtos.TransactionMinDto;
 import com.nathan.nl_finances.model.Transaction;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.util.List;
 import java.util.UUID;
 
 public interface TransactionRepository extends JpaRepository<Transaction, UUID> {
@@ -16,5 +17,5 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
     FROM tb_transaction t
     WHERE t.account_id = :accountId
     """)
-    List<TransactionMinDto> searchTransactionsByAccountId(UUID accountId);
+    Page<TransactionMinDto> searchTransactionsByAccountId(UUID accountId, Pageable pageable);
 }
