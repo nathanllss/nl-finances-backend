@@ -35,6 +35,47 @@ public class CategoryService {
         return categories.map(this::categoryToDto);
     }
 
+    public CategoryDto createCategory(final CategoryDto categoryDto) {
+        Category category = this.dtoToEntity(categoryDto);
+        //category.setOwner(getMe());
+        category = categoryRepository.save(category);
+        return this.categoryToDto(category);
+    }
+
+    public CategoryDto updateCategory(final Long id, final CategoryDto categoryDto) {
+        Optional<Category> category = categoryRepository.findById(id);
+
+        if (category.isEmpty()) {
+            throw new CategoryNotFoundException("Category not found");
+        }
+
+        Category updatedCategory = this.dtoToEntity(categoryDto);
+        updatedCategory.setId(id);
+        updatedCategory = categoryRepository.save(updatedCategory);
+        return this.categoryToDto(updatedCategory);
+    }
+
+    public void deleteCategory(final Long id) {
+        Optional<Category> category = categoryRepository.findById(id);
+
+        if (category.isEmpty()) {
+            throw new CategoryNotFoundException("Category not found");
+        }
+        categoryRepository.delete(category.get());
+    }
+
+    private void updateCategory(CategoryDto categoryDto, Category category) {
+        category.setName(categoryDto.getName());
+        category.setDescription(categoryDto.getDescription());
+        category.setType(categoryDto.getType());
+        category.setColorHex(categoryDto.getColorHex());
+        category.setImgUrl(categoryDto.getImgUrl());
+    }
+
+    private Category dtoToEntity(CategoryDto categoryDto) {
+        return CategoryMapper.toEntity(categoryDto);
+    }
+
     private CategoryDto categoryToDto(Category category) {
         return CategoryMapper.toDto(category);
     }
