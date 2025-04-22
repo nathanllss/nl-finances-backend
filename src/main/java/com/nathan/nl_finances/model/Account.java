@@ -4,10 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 import static jakarta.persistence.GenerationType.UUID;
 
@@ -25,14 +22,14 @@ public class Account {
     private BigDecimal currentBalance;
     @OneToMany(mappedBy = "owner",cascade = CascadeType.ALL)
     @Setter(AccessLevel.NONE)
-    private List<Transaction> transactions = new ArrayList<>();
+    private Set<Transaction> transactions = new HashSet<>();
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     @Setter(AccessLevel.NONE)
-    private List<Category> categories = new ArrayList<>();
+    private Set<Category> categories = new HashSet<>();
 
     @OneToMany(mappedBy = "accountOwner", cascade = CascadeType.ALL)
     @Setter(AccessLevel.NONE)
-    private List<Budget> budgets = new ArrayList<>();
+    private Set<Budget> budgets = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

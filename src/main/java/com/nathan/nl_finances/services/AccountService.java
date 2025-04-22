@@ -3,11 +3,7 @@ package com.nathan.nl_finances.services;
 import com.nathan.nl_finances.controllers.dtos.AccountDto;
 import com.nathan.nl_finances.exceptions.AccountNotFoundException;
 import com.nathan.nl_finances.mapper.AccountMapper;
-import com.nathan.nl_finances.mapper.BudgetMapper;
-import com.nathan.nl_finances.mapper.CategoryMapper;
 import com.nathan.nl_finances.model.Account;
-import com.nathan.nl_finances.model.Budget;
-import com.nathan.nl_finances.model.Category;
 import com.nathan.nl_finances.model.User;
 import com.nathan.nl_finances.repositories.AccountRepository;
 import com.nathan.nl_finances.repositories.UserRepository;
@@ -40,7 +36,7 @@ public class AccountService {
 
     @Transactional(readOnly = true)
     public AccountDto getAccountById(final UUID id) {
-        Optional<Account> account = accountRepository.findById(id);
+        Optional<Account> account = accountRepository.searchByIdWithDetails(id);
 
         if (account.isEmpty()) {
             throw new AccountNotFoundException("User not found");
@@ -61,8 +57,7 @@ public class AccountService {
         this.updateAccountData(account.get(), accountDto);
         entity = accountRepository.save(entity);
 
-        AccountDto test = this.accountToDto(entity);
-        return test;
+        return this.accountToDto(entity);
     }
 
     @Transactional
@@ -76,23 +71,6 @@ public class AccountService {
 
     private void updateAccountData(Account account, AccountDto accountDto) {
         account.setCurrentBalance(accountDto.getCurrentBalance());
-
-        account.getCategories().clear();
-        accountDto.getCategories().forEach(categoryDto -> {
-            Category category = CategoryMapper.toEntity(categoryDto);
-            if (category.getId() != null) {
-                account.getCategories().add(category);
-            }
-        });
-
-
-        account.getBudgets().clear();
-        accountDto.getBudgets().forEach(budgetDto -> {
-            Budget budget = BudgetMapper.toEntity(budgetDto);
-            account.getBudgets().add(budget);
-            budget.setAccountOwner(account);
-        });
-
     }
 
 

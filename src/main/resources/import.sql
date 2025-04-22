@@ -61,3 +61,18 @@ INSERT INTO tb_budget (id, account_id, name, planned_amount, spent_amount, perio
 -- Inserindo sumarios
 INSERT INTO tb_transaction_summary (id, account_id, total_income, total_spent, expenses_by_category_json) VALUES ('d23e4567-e89b-12d3-a456-426614174001', '623e4567-e89b-12d3-a456-426614174005', 7500.00, 4500.00, '{"Alimentação": 800.00, "Saúde": 300.00}');
 INSERT INTO tb_transaction_summary (id, account_id, total_income, total_spent, expenses_by_category_json) VALUES ('d23e4567-e89b-12d3-a456-426614174002', '723e4567-e89b-12d3-a456-426614174006', 5000.00, 3000.00, '{"Transporte": 250.00, "Moradia": 1500.00}');
+
+
+-- Inserindo relações entre budgets e categorias para o orçamento mensal
+INSERT INTO tb_budget_category (budget_id, category_id) VALUES ('c23e4567-e89b-12d3-a456-426614174001', 6);
+INSERT INTO tb_budget_category (budget_id, category_id) VALUES ('c23e4567-e89b-12d3-a456-426614174001', 10);
+INSERT INTO tb_budget_category (budget_id, category_id) VALUES ('c23e4567-e89b-12d3-a456-426614174001', 8);
+INSERT INTO tb_budget_category (budget_id, category_id) VALUES ('c23e4567-e89b-12d3-a456-426614174001', 9);
+INSERT INTO tb_budget_category (budget_id, category_id) VALUES ('c23e4567-e89b-12d3-a456-426614174001', 7);
+
+-- Inserindo relações entre budgets e categorias para o orçamento trimestral
+INSERT INTO tb_budget_category (budget_id, category_id) VALUES ('c23e4567-e89b-12d3-a456-426614174002', 6);
+INSERT INTO tb_budget_category (budget_id, category_id) VALUES ('c23e4567-e89b-12d3-a456-426614174002', 8);
+INSERT INTO tb_budget_category (budget_id, category_id) VALUES ('c23e4567-e89b-12d3-a456-426614174002', 7);
+INSERT INTO tb_budget_category (budget_id, category_id) VALUES ('c23e4567-e89b-12d3-a456-426614174002', 10);
+INSERT INTO tb_budget_category (budget_id, category_id) VALUES ('c23e4567-e89b-12d3-a456-426614174002', 9);

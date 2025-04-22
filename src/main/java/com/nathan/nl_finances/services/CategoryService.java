@@ -6,9 +6,10 @@ import com.nathan.nl_finances.mapper.CategoryMapper;
 import com.nathan.nl_finances.model.Category;
 import com.nathan.nl_finances.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -28,16 +29,10 @@ public class CategoryService {
         return this.categoryToDto(category.get());
     }
 
-    public List<CategoryDto> getCategoryOfOwner(final UUID ownerId) {
-        Optional<List<Category>> categories = categoryRepository.findByOwner_Id(ownerId);
+    public Page<CategoryDto> getCategoryOfOwner(final UUID ownerId, Pageable pageable) {
+        Page<Category> categories = categoryRepository.searchByOwner_Id(ownerId, pageable);
 
-        if (categories.isEmpty()) {
-            throw new CategoryNotFoundException("No categories found for this owner");
-        }
-
-        return categories.get().stream()
-                .map(this::categoryToDto)
-                .toList();
+        return categories.map(this::categoryToDto);
     }
 
     private CategoryDto categoryToDto(Category category) {
