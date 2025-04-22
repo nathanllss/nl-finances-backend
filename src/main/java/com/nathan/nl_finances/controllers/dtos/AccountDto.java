@@ -1,17 +1,16 @@
 package com.nathan.nl_finances.controllers.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.Value;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
-@AllArgsConstructor
-@Getter
-@EqualsAndHashCode
+@Value
 public class AccountDto {
 
-    private final UUID id;
-    private final BigDecimal currentBalance;
+    UUID id;
+    BigDecimal currentBalance;
+    List<CategoryDto> categories;
+    List<BudgetDto> budgets;
 }

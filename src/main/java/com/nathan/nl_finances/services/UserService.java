@@ -4,7 +4,6 @@ package com.nathan.nl_finances.services;
 import com.nathan.nl_finances.controllers.dtos.UserDto;
 import com.nathan.nl_finances.exceptions.UserNotFoundException;
 import com.nathan.nl_finances.mapper.UserMapper;
-import com.nathan.nl_finances.model.Account;
 import com.nathan.nl_finances.model.User;
 import com.nathan.nl_finances.repositories.UserRepository;
 import com.nathan.nl_finances.util.validators.UserValidator;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -26,6 +24,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AccountService accountService;
 
     @Autowired
     private List<UserValidator> validators;
@@ -43,7 +44,7 @@ public class UserService {
         User entity = dtoToEntity(userDto);
 
         log.info("Creating account for user: {} " , userDto.getUsername());
-        createAccount(entity);
+        accountService.createAccount(entity);
         log.info("Account created for user: {} " , userDto.getUsername());
 
         entity = userRepository.saveAndFlush(entity);
@@ -116,12 +117,12 @@ public class UserService {
         return UserMapper.toEntity(userDto);
     }
 
-    public void createAccount(User user) {
-        user.setActive(true);
-        Account account = new Account();
-        account.setCurrentBalance(BigDecimal.ZERO);
-        user.setAccount(account);
-    }
+//    private void createAccount(User user) {
+//        user.setActive(true);
+//        Account account = new Account();
+//        account.setCurrentBalance(BigDecimal.ZERO);
+//        user.setAccount(account);
+//    }
 
     private void updateUser(User user, UserDto userDto) {
         user.setName(userDto.getName());

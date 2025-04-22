@@ -16,7 +16,7 @@ public class TransactionService {
     @Autowired
     private TransactionRepository transactionRepository;
 
-    public TransactionListDto getAllTransactions(String accountId, Pageable pageable) {
+    public TransactionListDto getAllTransactions(final String accountId, Pageable pageable) {
 
         UUID uuidAccountId = UUID.fromString(accountId);
         Page<TransactionMinDto> transactions = transactionRepository.searchTransactionsByAccountId(uuidAccountId, pageable);

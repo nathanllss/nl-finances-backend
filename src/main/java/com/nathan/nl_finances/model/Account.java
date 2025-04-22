@@ -26,11 +26,11 @@ public class Account {
     @OneToMany(mappedBy = "owner",cascade = CascadeType.ALL)
     @Setter(AccessLevel.NONE)
     private List<Transaction> transactions = new ArrayList<>();
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     @Setter(AccessLevel.NONE)
     private List<Category> categories = new ArrayList<>();
 
-    @OneToMany(mappedBy = "accountOwner")
+    @OneToMany(mappedBy = "accountOwner", cascade = CascadeType.ALL)
     @Setter(AccessLevel.NONE)
     private List<Budget> budgets = new ArrayList<>();
 
