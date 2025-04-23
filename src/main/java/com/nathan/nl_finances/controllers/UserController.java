@@ -25,6 +25,12 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<UserDto> getMe() {
+        UserDto user = userService.getMe();
+        return ResponseEntity.ok(user);
+    }
+
     @PostMapping
     public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto) {
         UserDto user = userService.saveUser(userDto);

@@ -1,7 +1,7 @@
 package com.nathan.nl_finances.services;
 
 import com.nathan.nl_finances.controllers.dtos.TransactionListDto;
-import com.nathan.nl_finances.controllers.dtos.TransactionMinDto;
+import com.nathan.nl_finances.model.projections.TransactionMinDto;
 import com.nathan.nl_finances.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

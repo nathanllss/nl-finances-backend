@@ -6,11 +6,13 @@ import com.nathan.nl_finances.exceptions.UserNotFoundException;
 import com.nathan.nl_finances.mapper.UserMapper;
 import com.nathan.nl_finances.model.User;
 import com.nathan.nl_finances.repositories.UserRepository;
+import com.nathan.nl_finances.util.CustomUserUtil;
 import com.nathan.nl_finances.util.validators.UserValidator;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,9 +32,18 @@ public class UserService {
 
     @Autowired
     private List<UserValidator> validators;
+
+    @Autowired
+    private CustomUserUtil customUserUtil;
+
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 
+    @Transactional(readOnly = true)
+    public UserDto getMe() {
+        User user = authenticated();
+        return this.userToDto(user);
+    }
     @Transactional
     public UserDto saveUser(final UserDto userDto) {
 
@@ -117,12 +128,15 @@ public class UserService {
         return UserMapper.toEntity(userDto);
     }
 
-//    private void createAccount(User user) {
-//        user.setActive(true);
-//        Account account = new Account();
-//        account.setCurrentBalance(BigDecimal.ZERO);
-//        user.setAccount(account);
-//    }
+   protected User authenticated() {
+        try {
+            String username = customUserUtil.getLoggedUsername();
+
+            return userRepository.findByEmailAddress(username).get();
+        } catch (Exception e) {
+            throw new UsernameNotFoundException("Email not found");
+        }
+    }
 
     private void updateUser(User user, UserDto userDto) {
         user.setName(userDto.getName());

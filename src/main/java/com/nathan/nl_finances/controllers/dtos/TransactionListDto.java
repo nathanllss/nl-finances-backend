@@ -1,5 +1,6 @@
 package com.nathan.nl_finances.controllers.dtos;
 
+import com.nathan.nl_finances.model.projections.TransactionMinDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.data.domain.Page;

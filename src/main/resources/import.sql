@@ -1,9 +1,18 @@
 -- Inserindo usuários
-INSERT INTO tb_user (id, created_at, updated_at, active, name, email_address, phone_number, username, password) VALUES ('123e4567-e89b-12d3-a456-426614174000', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 'João Silva', 'joao@email.com', '11999887766', 'joaosilva', 'senha123');
-INSERT INTO tb_user (id, created_at, updated_at, active, name, email_address, phone_number, username, password) VALUES ('223e4567-e89b-12d3-a456-426614174001', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 'Maria Santos', 'maria@email.com', '11998765432', 'mariasantos', 'senha456');
-INSERT INTO tb_user (id, created_at, updated_at, active, name, email_address, phone_number, username, password) VALUES ('323e4567-e89b-12d3-a456-426614174002', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 'Pedro Oliveira', 'pedro@email.com', '11977889900', 'pedrooliveira', 'senha789');
-INSERT INTO tb_user (id, created_at, updated_at, active, name, email_address, phone_number, username, password) VALUES ('423e4567-e89b-12d3-a456-426614174003', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 'Ana Souza', 'ana@email.com', '11966778899', 'anasouza', 'senha101');
-INSERT INTO tb_user (id, created_at, updated_at, active, name, email_address, phone_number, username, password) VALUES ('523e4567-e89b-12d3-a456-426614174004', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 'Carlos Mendes', 'carlos@email.com', '11955667788', 'carlosmendes', 'senha202');
+INSERT INTO tb_user (id, created_at, updated_at, active, name, email_address, phone_number, username, password) VALUES ('123e4567-e89b-12d3-a456-426614174000', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 'João Silva', 'joao@email.com', '11999887766', 'joaosilva', '$2a$10$DMMNATLforB1IC98EydDROXvjlZV4HcDrQ.nXS0as16mT.BhAxHjy');
+INSERT INTO tb_user (id, created_at, updated_at, active, name, email_address, phone_number, username, password) VALUES ('223e4567-e89b-12d3-a456-426614174001', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 'Maria Santos', 'maria@email.com', '11998765432', 'mariasantos', '$2a$10$DMMNATLforB1IC98EydDROXvjlZV4HcDrQ.nXS0as16mT.BhAxHjy');
+INSERT INTO tb_user (id, created_at, updated_at, active, name, email_address, phone_number, username, password) VALUES ('323e4567-e89b-12d3-a456-426614174002', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 'Pedro Oliveira', 'pedro@email.com', '11977889900', 'pedrooliveira', '$2a$10$DMMNATLforB1IC98EydDROXvjlZV4HcDrQ.nXS0as16mT.BhAxHjy');
+INSERT INTO tb_user (id, created_at, updated_at, active, name, email_address, phone_number, username, password) VALUES ('423e4567-e89b-12d3-a456-426614174003', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 'Ana Souza', 'ana@email.com', '11966778899', 'anasouza', '$2a$10$DMMNATLforB1IC98EydDROXvjlZV4HcDrQ.nXS0as16mT.BhAxHjy');
+INSERT INTO tb_user (id, created_at, updated_at, active, name, email_address, phone_number, username, password) VALUES ('523e4567-e89b-12d3-a456-426614174004', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true, 'Carlos Mendes', 'carlos@email.com', '11955667788', 'carlosmendes', '$2a$10$DMMNATLforB1IC98EydDROXvjlZV4HcDrQ.nXS0as16mT.BhAxHjy');
+
+INSERT INTO tb_role (authority) VALUES ('ROLE_USER');
+INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN');
+
+INSERT INTO tb_user_role (user_id, role_id) VALUES ('123e4567-e89b-12d3-a456-426614174000', 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES ('223e4567-e89b-12d3-a456-426614174001', 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES ('323e4567-e89b-12d3-a456-426614174002', 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES ('423e4567-e89b-12d3-a456-426614174003', 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES ('523e4567-e89b-12d3-a456-426614174004', 2);
 
 -- Inserindo contas
 INSERT INTO tb_account (id, current_balance) VALUES ('623e4567-e89b-12d3-a456-426614174005', 5000.00);

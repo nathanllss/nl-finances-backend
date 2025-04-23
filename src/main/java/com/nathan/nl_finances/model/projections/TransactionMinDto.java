@@ -1,4 +1,4 @@
-package com.nathan.nl_finances.controllers.dtos;
+package com.nathan.nl_finances.model.projections;
 
 //@Value
 //public class TransactionMinDto {

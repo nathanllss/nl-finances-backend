@@ -1,6 +1,6 @@
 package com.nathan.nl_finances.repositories;
 
-import com.nathan.nl_finances.controllers.dtos.TransactionMinDto;
+import com.nathan.nl_finances.model.projections.TransactionMinDto;
 import com.nathan.nl_finances.model.Transaction;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
