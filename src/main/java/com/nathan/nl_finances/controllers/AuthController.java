@@ -2,10 +2,13 @@ package com.nathan.nl_finances.controllers;
 
 import com.nathan.nl_finances.controllers.dtos.LoginDto;
 import com.nathan.nl_finances.controllers.dtos.LoginResponseDto;
+import com.nathan.nl_finances.controllers.dtos.UserDto;
 import com.nathan.nl_finances.model.User;
 import com.nathan.nl_finances.services.TokenService;
+import com.nathan.nl_finances.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -33,4 +39,11 @@ public class AuthController {
 
         return ResponseEntity.ok(new LoginResponseDto(token));
     }
+
+    @PostMapping("/register")
+    public ResponseEntity createUser(@Valid @RequestBody UserDto userDto) {
+        userService.saveUser(userDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Account successfully created");
+    }
+
 }

@@ -7,9 +7,4 @@ public class LoginResponseDto {
 
     String accessToken;
 
-    public LoginResponseDto(String token) {
-        this.accessToken = token;
-    }
-
-
 }
