@@ -38,8 +38,7 @@ public class TokenService {
                     .build()
                     .verify(token)
                     .getSubject();
-        } catch (JWTVerificationException exception){
-            exception.printStackTrace();
+        } catch (JWTVerificationException exception) {
             return "";
         }
     }
