@@ -4,6 +4,7 @@ package com.nathan.nl_finances.services;
 import com.nathan.nl_finances.controllers.dtos.UserDto;
 import com.nathan.nl_finances.exceptions.UserNotFoundException;
 import com.nathan.nl_finances.mapper.UserMapper;
+import com.nathan.nl_finances.model.Account;
 import com.nathan.nl_finances.model.User;
 import com.nathan.nl_finances.repositories.UserRepository;
 import com.nathan.nl_finances.util.CustomUserUtil;
@@ -82,6 +83,14 @@ public class UserService {
             log.info("User found: {} ", user.get().getUsername());
             return this.userToDto(user.get());
         }
+    }
+
+    @Transactional(readOnly = true)
+    public UUID findUserAccountUUIDByEmail(String email) {
+        return userRepository.findByEmailAddress(email)
+                .map(User::getAccount)
+                .map(Account::getId)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
     @Transactional

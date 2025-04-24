@@ -39,7 +39,7 @@ public class User extends BaseModel implements UserDetails {
     private Account account;
 
     @Setter(value = AccessLevel.NONE)
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER) //nao é bom
     @JoinTable(name = "tb_user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))

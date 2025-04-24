@@ -3,6 +3,7 @@ package com.nathan.nl_finances.controllers;
 import com.nathan.nl_finances.controllers.dtos.LoginDto;
 import com.nathan.nl_finances.controllers.dtos.LoginResponseDto;
 import com.nathan.nl_finances.controllers.dtos.UserDto;
+import com.nathan.nl_finances.model.Account;
 import com.nathan.nl_finances.model.User;
 import com.nathan.nl_finances.services.TokenService;
 import com.nathan.nl_finances.services.UserService;
@@ -29,12 +30,25 @@ public class AuthController {
     @Autowired
     private TokenService tokenService;
 
+//    @PostMapping("/login")
+//    public ResponseEntity login(@RequestBody @Valid LoginDto data){
+//        var usernamePassword = new UsernamePasswordAuthenticationToken(data.getLogin(), data.getPassword());
+//        var auth = this.authenticationManager.authenticate(usernamePassword);
+//
+//        var token = tokenService.generateToken((User) auth.getPrincipal());
+//
+//
+//        return ResponseEntity.ok(new LoginResponseDto(token));
+//    }
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid LoginDto data){
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.getLogin(), data.getPassword());
         var auth = this.authenticationManager.authenticate(usernamePassword);
-
-        var token = tokenService.generateToken((User) auth.getPrincipal());
+        var user = (User) auth.getPrincipal();
+        Account acc = new Account();
+        user.setAccount(acc);
+        user.getAccount().setId(userService.findUserAccountUUIDByEmail(user.getEmailAddress()));
+        var token = tokenService.generateToken(user);
 
 
         return ResponseEntity.ok(new LoginResponseDto(token));
