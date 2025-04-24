@@ -1,6 +1,7 @@
 package com.nathan.nl_finances.repositories;
 
 import com.nathan.nl_finances.model.User;
+import com.nathan.nl_finances.model.projections.UserAccoutMinIdsDto;
 import com.nathan.nl_finances.model.projections.UserDetailsProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,6 +24,21 @@ public interface UserRepository extends JpaRepository<User, UUID> {
             	WHERE tb_user.email_address = :username
             """)
     List<UserDetailsProjection> searchUserAndRolesByUsername(String username);
+
+    @SuppressWarnings("SqlNoDataSourceInspection")
+    @Query(nativeQuery = true, value = """
+        SELECT
+            CAST(u.id AS varchar) AS userId,
+            CAST(a.id AS varchar) AS accountId,
+            r.authority as role
+        FROM tb_user u
+        LEFT JOIN tb_account a ON u.account_id = a.id
+        LEFT JOIN tb_user_role ur ON u.id = ur.user_id
+        LEFT JOIN tb_role r ON r.id = ur.role_id
+        WHERE a.id = :id
+        LIMIT 1
+    """)
+    UserAccoutMinIdsDto  searchUserAndAccountIdFromAccountId(UUID id);
 
     Optional<User> findByEmailAddress(String email);
 }
