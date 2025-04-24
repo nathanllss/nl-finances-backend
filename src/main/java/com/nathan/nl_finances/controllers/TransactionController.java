@@ -1,6 +1,6 @@
 package com.nathan.nl_finances.controllers;
 
-import com.nathan.nl_finances.controllers.dtos.TransactionDetailsDto;
+import com.nathan.nl_finances.dtos.TransactionDetailsDto;
 import com.nathan.nl_finances.domain.entity.User;
 import com.nathan.nl_finances.projections.TransactionMinDto;
 import com.nathan.nl_finances.services.TransactionService;
@@ -47,13 +47,20 @@ public class TransactionController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createTransaction(@AuthenticationPrincipal UserDetails userDetails,
+    public ResponseEntity<TransactionMinDto> createTransaction(@AuthenticationPrincipal UserDetails userDetails,
                                                                @RequestBody TransactionDetailsDto transactionDto) {
         var transaction = transactionService.createTransaction(
                 ((User) userDetails).getAccount(),
                 transactionDto);
         URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
                 .buildAndExpand(transaction.getId()).toUri();
-        return ResponseEntity.created(location).body("Transaction created successfully");
+        return ResponseEntity.created(location).body(transaction);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TransactionMinDto> updateTransaction(@PathVariable String id,
+                                                                    @RequestBody TransactionDetailsDto transactionDto) {
+        var transaction = transactionService.updateTransaction(UUID.fromString(id), transactionDto);
+        return ResponseEntity.ok(transaction);
     }
 }

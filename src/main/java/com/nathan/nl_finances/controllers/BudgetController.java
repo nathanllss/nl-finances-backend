@@ -1,6 +1,6 @@
 package com.nathan.nl_finances.controllers;
 
-import com.nathan.nl_finances.controllers.dtos.BudgetDto;
+import com.nathan.nl_finances.dtos.BudgetDto;
 import com.nathan.nl_finances.services.BudgetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

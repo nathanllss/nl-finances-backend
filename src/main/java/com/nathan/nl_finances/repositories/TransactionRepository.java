@@ -13,7 +13,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
 
     @SuppressWarnings("SqlNoDataSourceInspection")
     @Query(nativeQuery = true, value = """
-    SELECT CAST(t.id as varchar) AS id, t.title, t.description, t.type, t.moment, t.transaction_value
+    SELECT CAST(t.id as varchar) AS id, t.title, t.description, t.type, t.moment, t.transaction_value, t.recurring
     FROM tb_transaction t
     WHERE t.account_id = :accountId
     """)
@@ -21,7 +21,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
 
     @SuppressWarnings("SqlNoDataSourceInspection")
     @Query(nativeQuery = true, value = """
-    SELECT CAST(t.id as varchar) AS id, t.title, t.description, t.type, t.moment, t.transaction_value
+    SELECT CAST(t.id as varchar) AS id, t.title, t.description, t.type, t.moment, t.transaction_value, t.recurring
     FROM tb_transaction t
     WHERE t.account_id = :ownerId
     """)

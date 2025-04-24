@@ -1,6 +1,6 @@
 package com.nathan.nl_finances.controllers;
 
-import com.nathan.nl_finances.controllers.dtos.UserDto;
+import com.nathan.nl_finances.dtos.UserDto;
 import com.nathan.nl_finances.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

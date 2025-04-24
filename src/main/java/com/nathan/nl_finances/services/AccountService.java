@@ -1,6 +1,6 @@
 package com.nathan.nl_finances.services;
 
-import com.nathan.nl_finances.controllers.dtos.AccountDto;
+import com.nathan.nl_finances.dtos.AccountDto;
 import com.nathan.nl_finances.exceptions.AccountNotFoundException;
 import com.nathan.nl_finances.mapper.AccountMapper;
 import com.nathan.nl_finances.domain.entity.Account;

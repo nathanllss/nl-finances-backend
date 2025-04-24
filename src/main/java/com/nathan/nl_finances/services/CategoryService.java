@@ -1,6 +1,6 @@
 package com.nathan.nl_finances.services;
 
-import com.nathan.nl_finances.controllers.dtos.CategoryDto;
+import com.nathan.nl_finances.dtos.CategoryDto;
 import com.nathan.nl_finances.exceptions.CategoryNotFoundException;
 import com.nathan.nl_finances.mapper.CategoryMapper;
 import com.nathan.nl_finances.domain.entity.Category;

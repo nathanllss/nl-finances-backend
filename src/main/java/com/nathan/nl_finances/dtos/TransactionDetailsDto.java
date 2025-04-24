@@ -1,4 +1,4 @@
-package com.nathan.nl_finances.controllers.dtos;
+package com.nathan.nl_finances.dtos;
 
 import com.nathan.nl_finances.domain.enums.TransactionType;
 import lombok.Value;

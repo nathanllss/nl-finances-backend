@@ -1,8 +1,8 @@
 package com.nathan.nl_finances.controllers;
 
-import com.nathan.nl_finances.controllers.dtos.LoginRequestDto;
-import com.nathan.nl_finances.controllers.dtos.LoginResponseDto;
-import com.nathan.nl_finances.controllers.dtos.UserDto;
+import com.nathan.nl_finances.dtos.LoginRequestDto;
+import com.nathan.nl_finances.dtos.LoginResponseDto;
+import com.nathan.nl_finances.dtos.UserDto;
 import com.nathan.nl_finances.domain.entity.Account;
 import com.nathan.nl_finances.domain.entity.User;
 import com.nathan.nl_finances.services.TokenService;

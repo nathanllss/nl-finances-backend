@@ -1,7 +1,8 @@
 package com.nathan.nl_finances.mapper;
 
-import com.nathan.nl_finances.controllers.dtos.TransactionDetailsDto;
 import com.nathan.nl_finances.domain.entity.Transaction;
+import com.nathan.nl_finances.dtos.TransactionDetailsDto;
+import com.nathan.nl_finances.projections.TransactionMinDto;
 
 
 public abstract class TransactionMapper {
@@ -33,6 +34,15 @@ public abstract class TransactionMapper {
     }
 
 
-
-
+    public static TransactionMinDto toMinDto(Transaction transaction) {
+        return new TransactionMinDto.TransactionMinDtoImpl(
+                transaction.getId().toString(),
+                transaction.getTitle(),
+                transaction.getDescription(),
+                transaction.getType(),
+                transaction.getMoment(),
+                transaction.getValue(),
+                transaction.isRecurring()
+        );
+    }
 }

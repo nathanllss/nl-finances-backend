@@ -1,6 +1,6 @@
 package com.nathan.nl_finances.util.validators.impl;
 
-import com.nathan.nl_finances.controllers.dtos.UserDto;
+import com.nathan.nl_finances.dtos.UserDto;
 import com.nathan.nl_finances.exceptions.InvalidInformationException;
 import com.nathan.nl_finances.util.constants.RegEx;
 import com.nathan.nl_finances.util.validators.UserValidator;

@@ -14,14 +14,16 @@ public interface TransactionMinDto {
     TransactionType getType();
     OffsetDateTime getMoment();
     BigDecimal getTransactionValue();
+    boolean isRecurring();
 
     @Value
-    class TransactionMinDtoImpl implements TransactionMinDto {
+    public class TransactionMinDtoImpl implements TransactionMinDto {
         String id;
         String title;
         String description;
         TransactionType type;
         OffsetDateTime moment;
         BigDecimal transactionValue;
+        boolean recurring;
     }
 }

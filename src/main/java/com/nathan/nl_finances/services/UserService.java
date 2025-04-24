@@ -1,7 +1,7 @@
 package com.nathan.nl_finances.services;
 
 
-import com.nathan.nl_finances.controllers.dtos.UserDto;
+import com.nathan.nl_finances.dtos.UserDto;
 import com.nathan.nl_finances.exceptions.UserNotFoundException;
 import com.nathan.nl_finances.mapper.UserMapper;
 import com.nathan.nl_finances.domain.entity.Account;

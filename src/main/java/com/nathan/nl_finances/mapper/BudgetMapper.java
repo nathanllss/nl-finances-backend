@@ -1,6 +1,6 @@
 package com.nathan.nl_finances.mapper;
 
-import com.nathan.nl_finances.controllers.dtos.BudgetDto;
+import com.nathan.nl_finances.dtos.BudgetDto;
 import com.nathan.nl_finances.domain.entity.Budget;
 import com.nathan.nl_finances.domain.entity.Category;
 

@@ -1,6 +1,6 @@
 package com.nathan.nl_finances.mapper;
 
-import com.nathan.nl_finances.controllers.dtos.UserDto;
+import com.nathan.nl_finances.dtos.UserDto;
 import com.nathan.nl_finances.domain.entity.User;
 
 
