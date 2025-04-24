@@ -1,4 +1,4 @@
-package com.nathan.nl_finances.model;
+package com.nathan.nl_finances.domain;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;

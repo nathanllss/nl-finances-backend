@@ -5,7 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.nathan.nl_finances.model.User;
+import com.nathan.nl_finances.domain.entity.User;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 

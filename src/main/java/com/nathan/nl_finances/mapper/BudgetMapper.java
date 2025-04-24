@@ -1,8 +1,8 @@
 package com.nathan.nl_finances.mapper;
 
 import com.nathan.nl_finances.controllers.dtos.BudgetDto;
-import com.nathan.nl_finances.model.Budget;
-import com.nathan.nl_finances.model.Category;
+import com.nathan.nl_finances.domain.entity.Budget;
+import com.nathan.nl_finances.domain.entity.Category;
 
 import java.util.stream.Collectors;
 

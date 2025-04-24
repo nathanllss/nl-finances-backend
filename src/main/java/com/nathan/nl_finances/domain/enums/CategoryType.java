@@ -1,4 +1,4 @@
-package com.nathan.nl_finances.model.enums;
+package com.nathan.nl_finances.domain.enums;
 
 public enum CategoryType {
 

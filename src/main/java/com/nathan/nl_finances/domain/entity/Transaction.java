@@ -1,7 +1,7 @@
-package com.nathan.nl_finances.model;
+package com.nathan.nl_finances.domain.entity;
 
 
-import com.nathan.nl_finances.model.enums.TransactionType;
+import com.nathan.nl_finances.domain.enums.TransactionType;
 import jakarta.persistence.*;
 import lombok.*;
 

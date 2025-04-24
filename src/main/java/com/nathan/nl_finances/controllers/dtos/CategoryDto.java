@@ -1,6 +1,6 @@
 package com.nathan.nl_finances.controllers.dtos;
 
-import com.nathan.nl_finances.model.enums.CategoryType;
+import com.nathan.nl_finances.domain.enums.CategoryType;
 import lombok.Value;
 
 @Value

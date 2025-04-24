@@ -1,4 +1,4 @@
-package com.nathan.nl_finances.model;
+package com.nathan.nl_finances.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

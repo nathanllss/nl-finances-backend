@@ -1,5 +1,6 @@
-package com.nathan.nl_finances.model;
+package com.nathan.nl_finances.domain.entity;
 
+import com.nathan.nl_finances.domain.BaseModel;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

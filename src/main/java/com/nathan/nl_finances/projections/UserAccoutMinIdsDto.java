@@ -1,4 +1,4 @@
-package com.nathan.nl_finances.model.projections;
+package com.nathan.nl_finances.projections;
 
 import lombok.Value;
 

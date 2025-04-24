@@ -1,8 +1,8 @@
 package com.nathan.nl_finances.util;
 
 import com.nathan.nl_finances.config.security.UserContext;
-import com.nathan.nl_finances.model.User;
-import com.nathan.nl_finances.model.projections.UserAccoutMinIdsDto;
+import com.nathan.nl_finances.domain.entity.User;
+import com.nathan.nl_finances.projections.UserAccoutMinIdsDto;
 import com.nathan.nl_finances.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;

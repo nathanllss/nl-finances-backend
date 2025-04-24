@@ -1,8 +1,8 @@
 package com.nathan.nl_finances.repositories;
 
-import com.nathan.nl_finances.model.User;
-import com.nathan.nl_finances.model.projections.UserAccoutMinIdsDto;
-import com.nathan.nl_finances.model.projections.UserDetailsProjection;
+import com.nathan.nl_finances.domain.entity.User;
+import com.nathan.nl_finances.projections.UserAccoutMinIdsDto;
+import com.nathan.nl_finances.projections.UserDetailsProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

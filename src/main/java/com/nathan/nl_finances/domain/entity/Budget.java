@@ -1,6 +1,6 @@
-package com.nathan.nl_finances.model;
+package com.nathan.nl_finances.domain.entity;
 
-import com.nathan.nl_finances.model.enums.BudgetPeriod;
+import com.nathan.nl_finances.domain.enums.BudgetPeriod;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

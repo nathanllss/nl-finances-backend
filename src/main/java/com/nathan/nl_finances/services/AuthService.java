@@ -1,10 +1,10 @@
 package com.nathan.nl_finances.services;
 
 import com.nathan.nl_finances.exceptions.ForbiddenException;
-import com.nathan.nl_finances.model.Account;
-import com.nathan.nl_finances.model.Role;
-import com.nathan.nl_finances.model.User;
-import com.nathan.nl_finances.model.projections.UserDetailsProjection;
+import com.nathan.nl_finances.domain.entity.Account;
+import com.nathan.nl_finances.domain.entity.Role;
+import com.nathan.nl_finances.domain.entity.User;
+import com.nathan.nl_finances.projections.UserDetailsProjection;
 import com.nathan.nl_finances.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

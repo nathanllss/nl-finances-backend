@@ -1,7 +1,7 @@
 package com.nathan.nl_finances.mapper;
 
 import com.nathan.nl_finances.controllers.dtos.TransactionDetailsDto;
-import com.nathan.nl_finances.model.Transaction;
+import com.nathan.nl_finances.domain.entity.Transaction;
 
 
 public abstract class TransactionMapper {

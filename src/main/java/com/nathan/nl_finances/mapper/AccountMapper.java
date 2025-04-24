@@ -1,7 +1,7 @@
 package com.nathan.nl_finances.mapper;
 
 import com.nathan.nl_finances.controllers.dtos.AccountDto;
-import com.nathan.nl_finances.model.Account;
+import com.nathan.nl_finances.domain.entity.Account;
 
 
 public abstract class AccountMapper {

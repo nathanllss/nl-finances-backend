@@ -3,7 +3,7 @@ package com.nathan.nl_finances.services;
 import com.nathan.nl_finances.controllers.dtos.BudgetDto;
 import com.nathan.nl_finances.mapper.BudgetMapper;
 import com.nathan.nl_finances.mapper.CategoryMapper;
-import com.nathan.nl_finances.model.Budget;
+import com.nathan.nl_finances.domain.entity.Budget;
 import com.nathan.nl_finances.repositories.BudgetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

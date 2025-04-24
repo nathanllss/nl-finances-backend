@@ -1,6 +1,6 @@
-package com.nathan.nl_finances.model;
+package com.nathan.nl_finances.domain.entity;
 
-import com.nathan.nl_finances.model.enums.CategoryType;
+import com.nathan.nl_finances.domain.enums.CategoryType;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -1,6 +1,6 @@
 package com.nathan.nl_finances.controllers.dtos;
 
-import com.nathan.nl_finances.model.enums.BudgetPeriod;
+import com.nathan.nl_finances.domain.enums.BudgetPeriod;
 import lombok.Value;
 
 import java.math.BigDecimal;

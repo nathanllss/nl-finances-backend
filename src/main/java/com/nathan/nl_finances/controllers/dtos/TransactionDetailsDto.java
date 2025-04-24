@@ -1,6 +1,6 @@
 package com.nathan.nl_finances.controllers.dtos;
 
-import com.nathan.nl_finances.model.enums.TransactionType;
+import com.nathan.nl_finances.domain.enums.TransactionType;
 import lombok.Value;
 
 import java.math.BigDecimal;

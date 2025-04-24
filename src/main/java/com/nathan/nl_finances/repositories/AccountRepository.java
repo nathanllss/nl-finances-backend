@@ -1,6 +1,6 @@
 package com.nathan.nl_finances.repositories;
 
-import com.nathan.nl_finances.model.Account;
+import com.nathan.nl_finances.domain.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

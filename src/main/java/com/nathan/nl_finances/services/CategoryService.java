@@ -3,7 +3,7 @@ package com.nathan.nl_finances.services;
 import com.nathan.nl_finances.controllers.dtos.CategoryDto;
 import com.nathan.nl_finances.exceptions.CategoryNotFoundException;
 import com.nathan.nl_finances.mapper.CategoryMapper;
-import com.nathan.nl_finances.model.Category;
+import com.nathan.nl_finances.domain.entity.Category;
 import com.nathan.nl_finances.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
