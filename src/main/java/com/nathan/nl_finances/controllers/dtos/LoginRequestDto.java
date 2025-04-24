@@ -3,7 +3,7 @@ package com.nathan.nl_finances.controllers.dtos;
 import lombok.Value;
 
 @Value
-public class LoginDto {
+public class LoginRequestDto {
 
 
     String login;

@@ -8,7 +8,7 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Value
-public class TransactionDto {
+public class TransactionDetailsDto {
 
     UUID id;
     UUID ownerId;

@@ -58,7 +58,7 @@ public class TokenService {
                     .verify(token);
             return UUID.fromString(decodedJWT.getClaim("accountId").asString());
         } catch (JWTVerificationException exception) {
-            throw new SecurityException("Token JWT inválido ou expirado!");
+            throw new SecurityException("Invalid or expired Token!");
         }
     }
 

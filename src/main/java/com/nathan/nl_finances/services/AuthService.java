@@ -1,6 +1,7 @@
 package com.nathan.nl_finances.services;
 
 import com.nathan.nl_finances.exceptions.ForbiddenException;
+import com.nathan.nl_finances.model.Account;
 import com.nathan.nl_finances.model.Role;
 import com.nathan.nl_finances.model.User;
 import com.nathan.nl_finances.model.projections.UserDetailsProjection;
@@ -31,9 +32,10 @@ public class AuthService implements UserDetailsService {
         return customLoadUser(username, result);
     }
 
-    public void validateSelfOrAdmin(Long userId) {
-        User me = userService.authenticated();
-        if (!me.getId().equals(userId) && !me.hasRole("ROLE_ADMIN")) {
+    public void validateSelfOrAdmin(Object userId) {
+        User loggedMe = userService.authenticated();
+        Account loggedMeAccount = loggedMe.getAccount();
+        if (!loggedMeAccount.getId().toString().equalsIgnoreCase(userId.toString()) && !loggedMe.hasRole("ROLE_ADMIN")) {
             throw new ForbiddenException("Access denied");
         }
     }

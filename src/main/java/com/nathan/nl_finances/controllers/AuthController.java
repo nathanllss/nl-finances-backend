@@ -1,6 +1,6 @@
 package com.nathan.nl_finances.controllers;
 
-import com.nathan.nl_finances.controllers.dtos.LoginDto;
+import com.nathan.nl_finances.controllers.dtos.LoginRequestDto;
 import com.nathan.nl_finances.controllers.dtos.LoginResponseDto;
 import com.nathan.nl_finances.controllers.dtos.UserDto;
 import com.nathan.nl_finances.model.Account;
@@ -41,7 +41,7 @@ public class AuthController {
 //        return ResponseEntity.ok(new LoginResponseDto(token));
 //    }
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid LoginDto data){
+    public ResponseEntity login(@RequestBody @Valid LoginRequestDto data){
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.getLogin(), data.getPassword());
         var auth = this.authenticationManager.authenticate(usernamePassword);
         var user = (User) auth.getPrincipal();
