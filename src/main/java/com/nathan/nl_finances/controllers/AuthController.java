@@ -3,8 +3,6 @@ package com.nathan.nl_finances.controllers;
 import com.nathan.nl_finances.dtos.LoginRequestDto;
 import com.nathan.nl_finances.dtos.LoginResponseDto;
 import com.nathan.nl_finances.dtos.UserDto;
-import com.nathan.nl_finances.domain.entity.Account;
-import com.nathan.nl_finances.domain.entity.User;
 import com.nathan.nl_finances.services.TokenService;
 import com.nathan.nl_finances.services.UserService;
 import jakarta.validation.Valid;
@@ -34,10 +32,7 @@ public class AuthController {
     public ResponseEntity login(@RequestBody @Valid LoginRequestDto data){
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.getLogin(), data.getPassword());
         var auth = this.authenticationManager.authenticate(usernamePassword);
-        var user = (User) auth.getPrincipal();
-        Account acc = new Account();
-        user.setAccount(acc);
-        user.getAccount().setId(userService.findUserAccountUUIDByEmail(user.getEmailAddress()));
+        var user = userService.getUserWithAcc(auth);
         var token = tokenService.generateToken(user);
 
 

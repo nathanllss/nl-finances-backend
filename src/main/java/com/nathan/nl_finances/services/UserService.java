@@ -7,13 +7,14 @@ import com.nathan.nl_finances.dtos.UserDto;
 import com.nathan.nl_finances.exceptions.UserNotFoundException;
 import com.nathan.nl_finances.mapper.UserMapper;
 import com.nathan.nl_finances.repositories.UserRepository;
-import com.nathan.nl_finances.util.CustomUserUtil;
 import com.nathan.nl_finances.util.validators.UserValidator;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,9 +35,6 @@ public class UserService {
     @Autowired
     private List<UserValidator> validators;
 
-    @Autowired
-    private CustomUserUtil customUserUtil;
-
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 
@@ -45,6 +43,17 @@ public class UserService {
 //        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //        return this.userToDto(user);
 //    }
+
+    @Transactional(readOnly = true)
+    public User getUserWithAcc(Authentication auth) {
+        var user = (User) auth.getPrincipal();
+        var email = user.getEmailAddress();
+        Account acc = new Account();
+        acc.setId(this.findAccountUUIDByEmail(email));
+        user.setAccount(acc);
+        //user.getAccount().setId(this.findAccountUUIDByEmail(email));
+        return user;
+    }
     @Transactional(readOnly = true)
     public UserDto getMe(User user) {
         return this.userToDto(user);
@@ -57,7 +66,10 @@ public class UserService {
         log.info("User validated: {} " , userDto.getUsername());
 
         log.info("Saving user: {} " , userDto.getUsername());
+
+        String encryptedPassword = new BCryptPasswordEncoder().encode(userDto.getPassword());
         User entity = dtoToEntity(userDto);
+        entity.setPassword(encryptedPassword);
 
         log.info("Creating account for user: {} " , userDto.getUsername());
         accountService.createAccount(entity);
@@ -89,13 +101,6 @@ public class UserService {
         }
     }
 
-    @Transactional(readOnly = true)
-    public UUID findUserAccountUUIDByEmail(String email) {
-        return userRepository.findByEmailAddress(email)
-                .map(User::getAccount)
-                .map(Account::getId)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-    }
 
     @Transactional
     public UserDto updateUser(final UUID id, final UserDto userDto) {
@@ -164,5 +169,11 @@ public class UserService {
         for (UserValidator validator : validators) {
             validator.validate(userDto);
         }
+    }
+    private UUID findAccountUUIDByEmail(String email) {
+        return userRepository.findByEmailAddress(email)
+                .map(User::getAccount)
+                .map(Account::getId)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }
