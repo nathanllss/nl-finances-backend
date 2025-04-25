@@ -5,6 +5,7 @@ import com.nathan.nl_finances.domain.entity.User;
 import com.nathan.nl_finances.dtos.AccountDto;
 import com.nathan.nl_finances.exceptions.AccountNotFoundException;
 import com.nathan.nl_finances.mapper.AccountMapper;
+import com.nathan.nl_finances.projections.AccountSummaryProjection;
 import com.nathan.nl_finances.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,12 @@ public class AccountService {
         account = accountRepository.save(account);
 
         return this.accountToDto(account);
+    }
+
+    @Transactional(readOnly = true)
+    public AccountSummaryProjection getAccountSummary(final UUID id) {
+        var account = validateAccountOwner(id);
+        return accountRepository.getAccountSummary(account.getId());
     }
 
 //    @Transactional

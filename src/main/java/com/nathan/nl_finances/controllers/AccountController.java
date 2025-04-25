@@ -2,6 +2,7 @@ package com.nathan.nl_finances.controllers;
 
 import com.nathan.nl_finances.domain.entity.User;
 import com.nathan.nl_finances.dtos.AccountDto;
+import com.nathan.nl_finances.projections.AccountSummaryProjection;
 import com.nathan.nl_finances.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,11 @@ public class AccountController {
     public ResponseEntity<AccountDto> updateAccount(@PathVariable String id, @RequestBody AccountDto accountDto) {
         AccountDto updatedAccount = accountService.updateAccount(UUID.fromString(id), accountDto);
         return ResponseEntity.ok(updatedAccount);
+    }
+
+    @GetMapping("/summary")
+    public ResponseEntity<AccountSummaryProjection> getAccountSummary(@AuthenticationPrincipal UserDetails loggedUser) {
+        return ResponseEntity.ok(accountService.getAccountSummary(((User) loggedUser).getAccount().getId()));
     }
 
 //    @DeleteMapping("/{id}")

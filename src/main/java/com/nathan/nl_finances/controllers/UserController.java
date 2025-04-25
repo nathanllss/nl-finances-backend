@@ -1,10 +1,13 @@
 package com.nathan.nl_finances.controllers;
 
+import com.nathan.nl_finances.domain.entity.User;
 import com.nathan.nl_finances.dtos.UserDto;
 import com.nathan.nl_finances.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -26,8 +29,8 @@ public class UserController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<UserDto> getMe() {
-        UserDto user = userService.getMe();
+    public ResponseEntity<UserDto> getMe(@AuthenticationPrincipal UserDetails loggedUser) {
+        UserDto user = userService.getMe((User) loggedUser);
         return ResponseEntity.ok(user);
     }
 

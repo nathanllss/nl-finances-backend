@@ -6,6 +6,7 @@ import com.nathan.nl_finances.domain.entity.Role;
 import com.nathan.nl_finances.domain.entity.User;
 import com.nathan.nl_finances.projections.UserDetailsProjection;
 import com.nathan.nl_finances.repositories.UserRepository;
+import com.nathan.nl_finances.util.CustomUserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,7 +22,7 @@ public class AuthService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Autowired
-    private UserService userService;
+    private CustomUserUtil customUserUtil;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -33,7 +34,7 @@ public class AuthService implements UserDetailsService {
     }
 
     public void validateSelfOrAdmin(Object userId) {
-        User loggedMe = userService.authenticated();
+        User loggedMe = this.authenticated();
         Account loggedMeAccount = loggedMe.getAccount();
         if (!loggedMeAccount.getId().toString().equalsIgnoreCase(userId.toString()) && !loggedMe.hasRole("ROLE_ADMIN")) {
             throw new ForbiddenException("Access denied");
@@ -48,5 +49,15 @@ public class AuthService implements UserDetailsService {
             user.addRole(new Role(projection.getRoleId(), projection.getAuthority()));
         }
         return user;
+    }
+
+    protected User authenticated() {
+        try {
+            String username = customUserUtil.getLoggedUsername();
+
+            return userRepository.findByEmailAddress(username).get();
+        } catch (Exception e) {
+            throw new UsernameNotFoundException("Email not found");
+        }
     }
 }

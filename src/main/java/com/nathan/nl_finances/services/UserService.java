@@ -1,11 +1,11 @@
 package com.nathan.nl_finances.services;
 
 
+import com.nathan.nl_finances.domain.entity.Account;
+import com.nathan.nl_finances.domain.entity.User;
 import com.nathan.nl_finances.dtos.UserDto;
 import com.nathan.nl_finances.exceptions.UserNotFoundException;
 import com.nathan.nl_finances.mapper.UserMapper;
-import com.nathan.nl_finances.domain.entity.Account;
-import com.nathan.nl_finances.domain.entity.User;
 import com.nathan.nl_finances.repositories.UserRepository;
 import com.nathan.nl_finances.util.CustomUserUtil;
 import com.nathan.nl_finances.util.validators.UserValidator;
@@ -40,9 +40,13 @@ public class UserService {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 
+//    @Transactional(readOnly = true)
+//    public UserDto getMe() {
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        return this.userToDto(user);
+//    }
     @Transactional(readOnly = true)
-    public UserDto getMe() {
-        User user = authenticated();
+    public UserDto getMe(User user) {
         return this.userToDto(user);
     }
     @Transactional
@@ -137,15 +141,15 @@ public class UserService {
         return UserMapper.toEntity(userDto);
     }
 
-   protected User authenticated() {
-        try {
-            String username = customUserUtil.getLoggedUsername();
-
-            return userRepository.findByEmailAddress(username).get();
-        } catch (Exception e) {
-            throw new UsernameNotFoundException("Email not found");
-        }
-    }
+//   protected User authenticated() {
+//        try {
+//            String username = customUserUtil.getLoggedUsername();
+//
+//            return userRepository.findByEmailAddress(username).get();
+//        } catch (Exception e) {
+//            throw new UsernameNotFoundException("Email not found");
+//        }
+//    }
 
     private void updateUser(User user, UserDto userDto) {
         user.setName(userDto.getName());
