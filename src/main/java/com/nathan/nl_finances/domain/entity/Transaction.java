@@ -1,9 +1,13 @@
 package com.nathan.nl_finances.domain.entity;
 
 
+import com.nathan.nl_finances.domain.BaseModel;
 import com.nathan.nl_finances.domain.enums.TransactionType;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -16,7 +20,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Transaction {
+public class Transaction extends BaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

@@ -1,8 +1,9 @@
 package com.nathan.nl_finances.services;
 
-import com.nathan.nl_finances.dtos.TransactionDetailsDto;
 import com.nathan.nl_finances.domain.entity.Account;
 import com.nathan.nl_finances.domain.entity.Transaction;
+import com.nathan.nl_finances.dtos.TransactionDetailsDto;
+import com.nathan.nl_finances.exceptions.DatabaseIntegrityException;
 import com.nathan.nl_finances.exceptions.TransactionNotFoundException;
 import com.nathan.nl_finances.mapper.CategoryMapper;
 import com.nathan.nl_finances.mapper.TransactionMapper;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -46,12 +48,23 @@ public class TransactionService {
         }
 
 
+    @Transactional
     public TransactionMinDto updateTransaction(final UUID transactionId,
                                                    final TransactionDetailsDto transactionDto) {
         var transaction = validateTransactionOwner(transactionId);
         udpateTransactionData(transaction, transactionDto);
         transaction = transactionRepository.saveAndFlush(transaction);
         return toMinDto(transaction);
+    }
+
+    @Transactional
+    public void deleteTransaction(final UUID transactionId) {
+        try {
+            var transaction = validateTransactionOwner(transactionId);
+            transaction.setActive(false);
+        } catch (Exception e) {
+            throw new DatabaseIntegrityException("Database integrity violation");
+        }
     }
 
     private TransactionDetailsDto toDto(Transaction transaction) {

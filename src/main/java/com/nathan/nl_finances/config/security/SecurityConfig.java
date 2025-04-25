@@ -32,7 +32,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/users").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/v1/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/users/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "api/v1/transactions/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/h2-console/**", "/api-docs/**",
                                 "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/**.html"
                         ).permitAll()

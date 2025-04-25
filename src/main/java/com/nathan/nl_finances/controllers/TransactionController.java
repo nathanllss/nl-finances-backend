@@ -63,4 +63,10 @@ public class TransactionController {
         var transaction = transactionService.updateTransaction(UUID.fromString(id), transactionDto);
         return ResponseEntity.ok(transaction);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTransaction(@PathVariable String id) {
+        transactionService.deleteTransaction(UUID.fromString(id));
+        return ResponseEntity.noContent().build();
+    }
 }
