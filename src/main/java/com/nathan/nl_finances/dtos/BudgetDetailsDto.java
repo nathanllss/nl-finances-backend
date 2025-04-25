@@ -9,9 +9,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Value
-public class BudgetDto {
+public class BudgetDetailsDto {
 
     String id;
+    String OwnerId;
     String name;
     BigDecimal plannedAmount;
     BigDecimal spentAmount;

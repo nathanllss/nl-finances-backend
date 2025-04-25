@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/categories")
@@ -23,7 +24,7 @@ public class CategoryController {
 
     @GetMapping
     public ResponseEntity<Page<CategoryDto>> getCategories(@AuthenticationPrincipal UserDetails loggedUser, Pageable pageable) {
-        Page<CategoryDto> categories = categoryService.getCategoryOfOwner(
+        Page<CategoryDto> categories = categoryService.getCategoryByOwner(
                 ((User) loggedUser).getAccount().getId(),
                 pageable);
         return ResponseEntity.ok(categories);
@@ -32,6 +33,12 @@ public class CategoryController {
     @GetMapping("/{id}")
     public ResponseEntity<CategoryDto> getCategoryById(@PathVariable String id) {
         CategoryDto category = categoryService.getCategoryById(Long.valueOf(id));
+        return ResponseEntity.ok(category);
+    }
+
+    @GetMapping("/{accountId}/all")
+    public ResponseEntity<Page<CategoryDto>> getCategoryByIdAndOwner(@PathVariable String accountId, Pageable pageable) {
+        Page<CategoryDto> category = categoryService.getCategoryByOwner(UUID.fromString(accountId), pageable);
         return ResponseEntity.ok(category);
     }
 

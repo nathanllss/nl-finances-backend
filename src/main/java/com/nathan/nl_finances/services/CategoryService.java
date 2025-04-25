@@ -23,6 +23,15 @@ public class CategoryService {
     @Autowired
     private AuthService authService;
 
+
+//    @Transactional(readOnly = true)
+//    public Page<CategoryDto> getAllCategoriesOfOwner(final UUID ownerId,
+//                                                     Pageable pageable) {
+//        authService.validateSelfOrAdmin(ownerId);
+//        Page<Category> categories = categoryRepository.searchByOwner_Id(ownerId, pageable);
+//        return categories.map(this::categoryToDto);
+//    }
+
     @Transactional(readOnly = true)
     public CategoryDto getCategoryById(final Long id) {
         var category = validateCategoryOwner(id);
@@ -30,8 +39,9 @@ public class CategoryService {
     }
 
     @Transactional(readOnly = true)
-    public Page<CategoryDto> getCategoryOfOwner(final UUID ownerId,
+    public Page<CategoryDto> getCategoryByOwner(final UUID ownerId,
                                                 Pageable pageable) {
+        authService.validateSelfOrAdmin(ownerId);
         Page<Category> categories = categoryRepository.searchByOwner_Id(ownerId, pageable);
 
         return categories.map(this::categoryToDto);

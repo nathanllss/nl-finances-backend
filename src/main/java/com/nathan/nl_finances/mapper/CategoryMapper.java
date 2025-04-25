@@ -19,7 +19,7 @@ public abstract class CategoryMapper {
 
     public static Category toEntity(CategoryDto categoryDto) {
         Category entity = new Category();
-        //entity.setId(categoryDto.getId());
+
         entity.setName(categoryDto.getName());
         entity.setDescription(categoryDto.getDescription());
         entity.setImgUrl(categoryDto.getImgUrl());

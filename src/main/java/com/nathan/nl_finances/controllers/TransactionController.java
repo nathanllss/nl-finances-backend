@@ -42,7 +42,7 @@ public class TransactionController {
 
     @GetMapping("/{accountId}/all")
     public ResponseEntity<Page<TransactionMinDto>> getAllTransactionsByUser_AccountId(@PathVariable String accountId, Pageable pageable) {
-        var transactions = transactionService.getAllTransactionsByUser_AccountId(UUID.fromString(accountId), pageable);
+        var transactions = transactionService.getAllMyTransactions(UUID.fromString(accountId), pageable);
         return ResponseEntity.ok(transactions);
     }
 

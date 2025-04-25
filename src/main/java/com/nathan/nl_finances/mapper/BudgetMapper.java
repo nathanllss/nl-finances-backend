@@ -1,8 +1,9 @@
 package com.nathan.nl_finances.mapper;
 
-import com.nathan.nl_finances.dtos.BudgetDto;
 import com.nathan.nl_finances.domain.entity.Budget;
 import com.nathan.nl_finances.domain.entity.Category;
+import com.nathan.nl_finances.dtos.BudgetDetailsDto;
+import com.nathan.nl_finances.dtos.BudgetDto;
 
 import java.util.stream.Collectors;
 
@@ -11,7 +12,6 @@ public abstract class BudgetMapper {
     public static BudgetDto toDto(Budget budget) {
         BudgetDto budgetDto = new BudgetDto(
                 budget.getId().toString(),
-                budget.getAccountOwner().getId().toString(),
                 budget.getName(),
                 budget.getPlannedAmount(),
                 budget.getSpentAmount(),
@@ -36,6 +36,22 @@ public abstract class BudgetMapper {
                 budgetDto.getCategories()
                         .stream().map(CategoryMapper::toEntity).collect(Collectors.toSet()));
         return entity;
+    }
+
+    public static BudgetDetailsDto toDetailsDto(Budget budget) {
+        BudgetDetailsDto budgetDto = new BudgetDetailsDto(
+                budget.getId().toString(),
+                budget.getAccountOwner().getId().toString(),
+                budget.getName(),
+                budget.getPlannedAmount(),
+                budget.getSpentAmount(),
+                budget.getPeriod(),
+                budget.getStartDate(),
+                budget.getEndDate());
+        for (Category category : budget.getCategories()) {
+            budgetDto.addCategories(CategoryMapper.toDto(category));
+        }
+        return budgetDto;
     }
 
 

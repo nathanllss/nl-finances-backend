@@ -26,12 +26,13 @@ public class TransactionService {
     @Autowired
     private AuthService authService;
 
-    public Page<TransactionMinDto> getAllTransactionsByUser_AccountId(final UUID accountId, Pageable pageable) {
-        authService.validateSelfOrAdmin(accountId);
-        return transactionRepository.searchTransactionsByAccountId(accountId, pageable);
-    }
+//    public Page<TransactionMinDto> getAllTransactionsByUser_AccountId(final UUID accountId, Pageable pageable) {
+//        authService.validateSelfOrAdmin(accountId);
+//        return transactionRepository.searchTransactionsByAccountId(accountId, pageable);
+//    }
 
     public Page<TransactionMinDto> getAllMyTransactions(final UUID accountId, Pageable pageable) {
+        authService.validateSelfOrAdmin(accountId);
         return transactionRepository.searchByOwner_Id(accountId, pageable);
     }
 

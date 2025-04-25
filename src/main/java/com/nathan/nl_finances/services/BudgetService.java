@@ -1,16 +1,21 @@
 package com.nathan.nl_finances.services;
 
+import com.nathan.nl_finances.domain.entity.Account;
+import com.nathan.nl_finances.domain.entity.Budget;
+import com.nathan.nl_finances.dtos.BudgetDetailsDto;
 import com.nathan.nl_finances.dtos.BudgetDto;
+import com.nathan.nl_finances.exceptions.BudgetNotFoundException;
+import com.nathan.nl_finances.exceptions.DatabaseIntegrityException;
 import com.nathan.nl_finances.mapper.BudgetMapper;
 import com.nathan.nl_finances.mapper.CategoryMapper;
-import com.nathan.nl_finances.domain.entity.Budget;
+import com.nathan.nl_finances.projections.BudgetMinDto;
 import com.nathan.nl_finances.repositories.BudgetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -19,60 +24,65 @@ public class BudgetService {
 
     @Autowired
     private BudgetRepository budgetRepository;
+    @Autowired
+    private AuthService authService;
+
+//    @Transactional(readOnly = true)
+//    public Page<BudgetMinDto> getBudgetsOfAccount(final UUID accountId, final Pageable pageable) {
+//        authService.validateSelfOrAdmin(accountId);
+//        return budgetRepository.searchBudgetByAccountOwner_Id(accountId, pageable);
+//    }
 
     @Transactional(readOnly = true)
-    public BudgetDto getBudgetById(final UUID id) {
-        Optional<Budget> budget = budgetRepository.findById(id);
-
-        if (budget.isEmpty()) {
-            throw new RuntimeException("Budget not found");
-        }
-        return this.budgetToDto(budget.get());
+    public BudgetDetailsDto getBudgetById(final UUID id) {
+        var budget = validateBudgetOwner(id);
+        return this.toDetailsDto(budget);
     }
 
     @Transactional(readOnly = true)
-    public List<BudgetDto> getBudgetsByAccount(final UUID accountId) {
-        Optional<List<Budget>> budgets = budgetRepository.findByAccountOwner_Id(accountId);
-
-        if (budgets.isEmpty()) {
-            throw new RuntimeException("Budgets not found");
-        }
-        return budgets.get()
-                .stream().map(this::budgetToDto)
-                .toList();
+    public Page<BudgetMinDto> getBudgetsByAccount(final UUID accountId, Pageable pageable) {
+        authService.validateSelfOrAdmin(accountId);
+        return budgetRepository.searchBudgetByAccountOwner_Id(accountId, pageable);
     }
 
     @Transactional
-    public BudgetDto createBudget(final BudgetDto budgetDto) {
+    public BudgetDto createBudget(final Account account, final BudgetDto budgetDto) {
         Budget budget = dtoToEntity(budgetDto);
-        //budget.setAccountOwner(getMe());
+        budget.setAccountOwner(account);
         budget = budgetRepository.saveAndFlush(budget);
         return this.budgetToDto(budget);
     }
 
     @Transactional
     public void deleteBudget(final UUID id) {
-        Optional<Budget> budget = budgetRepository.findById(id);
-
-        if (budget.isEmpty()) {
-            throw new RuntimeException("Budget not found");
+        try {
+            var budget = validateBudgetOwner(id);
+            budget.getCategories().clear();
+            budgetRepository.delete(budget);
+        } catch (Exception e) {
+            throw new DatabaseIntegrityException("Database integrity violation");
         }
-        budgetRepository.delete(budget.get());
     }
 
     @Transactional
     public BudgetDto updateBudget(final UUID id, final BudgetDto budgetDto) {
-        Optional<Budget> budget = budgetRepository.findById(id);
-
-        if (budget.isEmpty()) {
-            throw new RuntimeException("Budget not found");
-        }
-
-        Budget entity = budget.get();
+        var entity = validateBudgetOwner(id);
+;
         this.updateBudgetData(entity, budgetDto);
         entity = budgetRepository.save(entity);
 
         return this.budgetToDto(entity);
+    }
+
+    private Budget validateBudgetOwner(final UUID budgetId) {
+        if (budgetRepository.existsById(budgetId)) {
+            var budget = budgetRepository.findById(budgetId).get();
+            var budgetOwnerId = budget.getAccountOwner().getId();
+            authService.validateSelfOrAdmin(budgetOwnerId);
+            return budget;
+        } else {
+            throw new BudgetNotFoundException("Budget not found");
+        }
     }
 
     private void updateBudgetData(Budget entity, BudgetDto budgetDto) {
@@ -92,6 +102,9 @@ public class BudgetService {
         return BudgetMapper.toDto(budget);
     }
 
+    private BudgetDetailsDto toDetailsDto(Budget budget) {
+        return BudgetMapper.toDetailsDto(budget);
+    }
     private Budget dtoToEntity(BudgetDto budgetDto) {
         return BudgetMapper.toEntity(budgetDto);
     }
