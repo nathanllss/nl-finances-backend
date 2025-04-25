@@ -39,18 +39,9 @@ public class CategoryService {
 
     @Transactional
     public CategoryDto createCategory(final Account account, final CategoryDto categoryDto) {
-        Category category = new Category();
-        // Configurar manualmente cada campo ao invés de usar o mapper
-        category.setName(categoryDto.getName());
-        category.setDescription(categoryDto.getDescription());
-        category.setImgUrl(categoryDto.getImgUrl());
-        category.setColorHex(categoryDto.getColorHex());
-        category.setType(categoryDto.getType());
+        Category category = dtoToEntity(categoryDto);
         category.setOwner(account);
-        // Não setar o ID, deixar o JPA gerar
-
         category = categoryRepository.saveAndFlush(category);
-
         return categoryToDto(category);
     }
 
