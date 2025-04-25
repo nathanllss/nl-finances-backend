@@ -29,16 +29,24 @@ UPDATE tb_user SET account_id = '923e4567-e89b-12d3-a456-426614174008' WHERE id 
 UPDATE tb_user SET account_id = 'a23e4567-e89b-12d3-a456-426614174009' WHERE id = '523e4567-e89b-12d3-a456-426614174004';
 
 -- Inserindo categorias de receita
-INSERT INTO tb_category (id, name, description, img_url, color_hex, type, account_id) VALUES (1, 'Salário', 'Rendimentos mensais', 'salary-icon.png', '#27AE60', 'INCOME', '623e4567-e89b-12d3-a456-426614174005');
-INSERT INTO tb_category (id, name, description, img_url, color_hex, type, account_id) VALUES (2, 'Freelance', 'Trabalhos extras', 'freelance-icon.png', '#2ECC71', 'INCOME', '623e4567-e89b-12d3-a456-426614174005');
-INSERT INTO tb_category (id, name, description, img_url, color_hex, type, account_id) VALUES (3, 'Investimentos', 'Rendimentos financeiros', 'investment-icon.png', '#3498DB', 'INCOME', '723e4567-e89b-12d3-a456-426614174006');
-INSERT INTO tb_category (id, name, description, img_url, color_hex, type, account_id) VALUES (4, 'Vendas', 'Vendas online', 'sales-icon.png', '#F1C40F', 'INCOME', '823e4567-e89b-12d3-a456-426614174007');
-INSERT INTO tb_category (id, name, description, img_url, color_hex, type, account_id) VALUES (5, 'Aluguel', 'Renda de aluguel', 'rent-icon.png', '#E67E22', 'INCOME', '923e4567-e89b-12d3-a456-426614174008');
-INSERT INTO tb_category (id, name, description, img_url, color_hex, type, account_id) VALUES (6, 'Alimentação', 'Gastos com comida', 'food-icon.png', '#E74C3C', 'EXPENSE', '623e4567-e89b-12d3-a456-426614174005');
-INSERT INTO tb_category (id, name, description, img_url, color_hex, type, account_id) VALUES (7, 'Transporte', 'Gastos com locomoção', 'transport-icon.png', '#9B59B6', 'EXPENSE', '723e4567-e89b-12d3-a456-426614174006');
-INSERT INTO tb_category (id, name, description, img_url, color_hex, type, account_id) VALUES (8, 'Moradia', 'Despesas com casa', 'home-icon.png', '#34495E', 'EXPENSE', '823e4567-e89b-12d3-a456-426614174007');
-INSERT INTO tb_category (id, name, description, img_url, color_hex, type, account_id) VALUES (9, 'Lazer', 'Entretenimento', 'leisure-icon.png', '#16A085', 'EXPENSE', '923e4567-e89b-12d3-a456-426614174008');
-INSERT INTO tb_category (id, name, description, img_url, color_hex, type, account_id) VALUES (10, 'Saúde', 'Gastos médicos', 'health-icon.png', '#C0392B', 'EXPENSE', '623e4567-e89b-12d3-a456-426614174005');
+INSERT INTO tb_category (name, description, img_url, color_hex, type, account_id) VALUES ('Salário', 'Rendimentos mensais', 'salary-icon.png', '#27AE60', 'INCOME', '623e4567-e89b-12d3-a456-426614174005');
+INSERT INTO tb_category (name, description, img_url, color_hex, type, account_id) VALUES ('Freelance', 'Trabalhos extras', 'freelance-icon.png', '#2ECC71', 'INCOME', '623e4567-e89b-12d3-a456-426614174005');
+INSERT INTO tb_category (name, description, img_url, color_hex, type, account_id) VALUES ('Investimentos', 'Rendimentos financeiros', 'investment-icon.png', '#3498DB', 'INCOME', '723e4567-e89b-12d3-a456-426614174006');
+INSERT INTO tb_category (name, description, img_url, color_hex, type, account_id) VALUES ('Vendas', 'Vendas online', 'sales-icon.png', '#F1C40F', 'INCOME', '823e4567-e89b-12d3-a456-426614174007');
+INSERT INTO tb_category (name, description, img_url, color_hex, type, account_id) VALUES ('Aluguel', 'Renda de aluguel', 'rent-icon.png', '#E67E22', 'INCOME', '923e4567-e89b-12d3-a456-426614174008');
+INSERT INTO tb_category (name, description, img_url, color_hex, type, account_id) VALUES ('Alimentação', 'Gastos com comida', 'food-icon.png', '#E74C3C', 'EXPENSE', '623e4567-e89b-12d3-a456-426614174005');
+INSERT INTO tb_category (name, description, img_url, color_hex, type, account_id) VALUES ('Transporte', 'Gastos com locomoção', 'transport-icon.png', '#9B59B6', 'EXPENSE', '723e4567-e89b-12d3-a456-426614174006');
+INSERT INTO tb_category (name, description, img_url, color_hex, type, account_id) VALUES ('Moradia', 'Despesas com casa', 'home-icon.png', '#34495E', 'EXPENSE', '823e4567-e89b-12d3-a456-426614174007');
+INSERT INTO tb_category (name, description, img_url, color_hex, type, account_id) VALUES ('Lazer', 'Entretenimento', 'leisure-icon.png', '#16A085', 'EXPENSE', '923e4567-e89b-12d3-a456-426614174008');
+INSERT INTO tb_category (name, description, img_url, color_hex, type, account_id) VALUES ('Saúde', 'Gastos médicos', 'health-icon.png', '#C0392B', 'EXPENSE', '623e4567-e89b-12d3-a456-426614174005');
+INSERT INTO tb_category (name, description, img_url, color_hex, type, account_id) VALUES ('Salário', 'Rendimento mensal fixo', 'salary-icon.png', '#27AE60', 'INCOME', 'a23e4567-e89b-12d3-a456-426614174009');
+INSERT INTO tb_category (name, description, img_url, color_hex, type, account_id) VALUES ('Freelance', 'Trabalhos extras e projetos pontuais', 'freelance-icon.png', '#2ECC71', 'INCOME', 'a23e4567-e89b-12d3-a456-426614174009');
+INSERT INTO tb_category (name, description, img_url, color_hex, type, account_id) VALUES ('Investimentos', 'Rendimentos de aplicações financeiras', 'investment-icon.png', '#3498DB', 'INCOME', 'a23e4567-e89b-12d3-a456-426614174009');
+INSERT INTO tb_category (name, description, img_url, color_hex, type, account_id) VALUES ('Alimentação', 'Gastos com mercado e refeições', 'food-icon.png', '#E74C3C', 'EXPENSE', 'a23e4567-e89b-12d3-a456-426614174009');
+INSERT INTO tb_category (name, description, img_url, color_hex, type, account_id) VALUES ('Moradia', 'Despesas relacionadas à casa', 'home-icon.png', '#34495E', 'EXPENSE', 'a23e4567-e89b-12d3-a456-426614174009');
+INSERT INTO tb_category (name, description, img_url, color_hex, type, account_id) VALUES ('Transporte', 'Gastos com locomoção', 'transport-icon.png', '#9B59B6', 'EXPENSE', 'a23e4567-e89b-12d3-a456-426614174009');
+INSERT INTO tb_category (name, description, img_url, color_hex, type, account_id) VALUES ('Lazer', 'Entretenimento e diversão', 'leisure-icon.png', '#16A085', 'EXPENSE', 'a23e4567-e89b-12d3-a456-426614174009');
+INSERT INTO tb_category (name, description, img_url, color_hex, type, account_id) VALUES ('Saúde', 'Despesas médicas e farmácia', 'health-icon.png', '#C0392B', 'EXPENSE', 'a23e4567-e89b-12d3-a456-426614174009');
 
 -- Inserindo transacoes
 INSERT INTO tb_transaction (id, title, description, category_id, type, moment, transaction_value, account_id, recurring, created_at, updated_at, active) VALUES ('b23e4567-e89b-12d3-a456-426614174001', 'Salário Janeiro', 'Pagamento mensal', 1, 'INCOME', '2024-01-05 08:00:00-03:00', 5000.00, '623e4567-e89b-12d3-a456-426614174005', true, '2024-01-05 09:30:00-03:00', null, true);

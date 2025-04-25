@@ -30,16 +30,6 @@ public class AuthController {
     @Autowired
     private TokenService tokenService;
 
-//    @PostMapping("/login")
-//    public ResponseEntity login(@RequestBody @Valid LoginDto data){
-//        var usernamePassword = new UsernamePasswordAuthenticationToken(data.getLogin(), data.getPassword());
-//        var auth = this.authenticationManager.authenticate(usernamePassword);
-//
-//        var token = tokenService.generateToken((User) auth.getPrincipal());
-//
-//
-//        return ResponseEntity.ok(new LoginResponseDto(token));
-//    }
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid LoginRequestDto data){
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.getLogin(), data.getPassword());

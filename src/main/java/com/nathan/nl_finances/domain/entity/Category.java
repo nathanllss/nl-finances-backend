@@ -2,11 +2,12 @@ package com.nathan.nl_finances.domain.entity;
 
 import com.nathan.nl_finances.domain.enums.CategoryType;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Objects;
-
-import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "tb_category")
@@ -17,9 +18,8 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
     private String name;
     private String description;
     private String imgUrl;
