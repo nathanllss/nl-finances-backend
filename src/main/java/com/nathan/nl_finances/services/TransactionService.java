@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -101,4 +102,13 @@ public class TransactionService {
         }
     }
 
+    public List<TransactionMinDto> getAllMyTransactionsNoPage(UUID accountId) {
+        authService.validateSelfOrAdmin(accountId);
+        return transactionRepository.searchWithNoPaginatinoByOwner_Id(accountId);
+    }
+    public List<TransactionDetailsDto> getAllMyTransactionsDetailsNoPage(UUID accountId) {
+        authService.validateSelfOrAdmin(accountId);
+        return transactionRepository.findAllByOwner_Id(accountId)
+                .stream().map(this::toDto).toList();
+    }
 }

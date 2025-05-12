@@ -1,7 +1,7 @@
 package com.nathan.nl_finances.controllers;
 
-import com.nathan.nl_finances.dtos.TransactionDetailsDto;
 import com.nathan.nl_finances.domain.entity.User;
+import com.nathan.nl_finances.dtos.TransactionDetailsDto;
 import com.nathan.nl_finances.projections.TransactionMinDto;
 import com.nathan.nl_finances.services.TransactionService;
 import lombok.AllArgsConstructor;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -31,6 +32,19 @@ public class TransactionController {
         var transactions = transactionService.getAllMyTransactions(
                 ((User) userDetails).getAccount().getId(),
                 pageable);
+        return ResponseEntity.ok(transactions);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<TransactionMinDto>> getMyTransactionsNoPage(@AuthenticationPrincipal UserDetails userDetails) {
+        var transactions = transactionService.getAllMyTransactionsNoPage(
+                ((User) userDetails).getAccount().getId());
+        return ResponseEntity.ok(transactions);
+    }
+    @GetMapping("/all/full")
+    public ResponseEntity<List<TransactionDetailsDto>> getMyTransactionsDetailsNoPage(@AuthenticationPrincipal UserDetails userDetails) {
+        var transactions = transactionService.getAllMyTransactionsDetailsNoPage(
+                ((User) userDetails).getAccount().getId());
         return ResponseEntity.ok(transactions);
     }
 

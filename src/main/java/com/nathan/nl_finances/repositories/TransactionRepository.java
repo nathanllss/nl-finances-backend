@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface TransactionRepository extends JpaRepository<Transaction, UUID> {
@@ -28,4 +29,13 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
             """)
     Page<TransactionMinDto> searchByOwner_Id(UUID ownerId, Pageable pageable);
 
+    @Query(nativeQuery = true, value = """
+            SELECT CAST(t.id as varchar) AS id, t.title, t.description, t.type, t.moment, t.transaction_value, t.recurring
+            FROM tb_transaction t
+            WHERE t.account_id = :ownerId
+            AND t.active = true
+            """)
+    List<TransactionMinDto> searchWithNoPaginatinoByOwner_Id(UUID ownerId);
+
+    List<Transaction> findAllByOwner_Id(UUID ownerId);
 }
